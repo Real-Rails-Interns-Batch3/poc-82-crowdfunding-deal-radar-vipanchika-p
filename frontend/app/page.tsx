@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+// Step 5: Updated import statement to include useState
+import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import IntelligenceSidebar from '@/components/IntelligenceSidebar'; 
 
@@ -17,17 +18,33 @@ const TractionChart = dynamic(
 );
 
 export default function Home() {
+  // Step 5: Instantiated the local state container for modal tracking
+  const [showInfo, setShowInfo] = useState(false);
+
   return (
-    <main className="min-h-screen bg-[#030712] text-white font-sans antialiased selection:bg-[#38BDF8]/30">
+    <main className="min-h-screen bg-[#0A0A12] text-white font-sans antialiased selection:bg-emerald-500/30">
+      
+      {/* Step 6: Added the fixed positioning (i) Trigger Button */}
+      <div className="fixed top-4 right-4 z-50">
+        <button
+          onClick={() => setShowInfo(true)}
+          className="w-10 h-10 rounded-full border border-emerald-500 bg-black/70 text-emerald-400 font-bold transition-all hover:bg-emerald-500/10 focus:outline-none"
+        >
+          i
+        </button>
+      </div>
+
       <div className="flex h-screen overflow-hidden">
         
         {/* Main Stage Panel Area - 70% Width Split */}
         <div className="w-[70%] p-6 overflow-y-auto space-y-6">
           
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-white">Crowdfunding Deal Radar</h1>
+            <h1 className="text-3xl font-extrabold tracking-tight text-white">
+              Infocreon Internship - Crowdfunding Deal Radar
+            </h1>
             <p className="text-xs text-gray-500 mt-1 uppercase tracking-widest font-semibold">
-              Core Infrastructure Rail: <span className="text-[#38BDF8]">Capital Formation</span>
+              Core Infrastructure Rail: <span className="text-emerald-400">Capital Formation</span>
             </p>
           </div>
 
@@ -47,7 +64,7 @@ export default function Home() {
             </div>
             <div className="bg-[#0B1117] border border-[#1F2937] rounded-xl p-4">
               <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Top Sector</p>
-              <h2 className="text-2xl font-bold mt-1 text-[#38BDF8]">FinTech</h2>
+              <h2 className="text-2xl font-bold mt-1 text-emerald-400">FinTech</h2>
             </div>
           </div>
 
@@ -78,22 +95,22 @@ export default function Home() {
               </thead>
               <tbody className="divide-y divide-[#1F2937] text-gray-300">
                 <tr className="group">
-                  <td className="py-3.5 font-medium text-white group-hover:text-[#38BDF8] transition-colors">FinGrow</td>
+                  <td className="py-3.5 font-medium text-white group-hover:text-emerald-400 transition-colors">FinGrow</td>
                   <td className="py-3.5 text-gray-400">FinTech</td>
                   <td className="py-3.5">$500K</td>
-                  <td className="py-3.5"><span className="text-xs bg-sky-400/10 text-[#38BDF8] px-2 py-0.5 rounded font-medium">Seed</span></td>
+                  <td className="py-3.5"><span className="text-xs bg-emerald-400/10 text-emerald-400 px-2 py-0.5 rounded font-medium">Seed</span></td>
                 </tr>
                 <tr className="group">
-                  <td className="py-3.5 font-medium text-white group-hover:text-[#38BDF8] transition-colors">EcoGrid</td>
+                  <td className="py-3.5 font-medium text-white group-hover:text-emerald-400 transition-colors">EcoGrid</td>
                   <td className="py-3.5 text-gray-400">ClimateTech</td>
                   <td className="py-3.5">$1M</td>
                   <td className="py-3.5"><span className="text-xs bg-indigo-400/10 text-[#818CF8] px-2 py-0.5 rounded font-medium">Series A</span></td>
                 </tr>
                 <tr className="group">
-                  <td className="py-3.5 font-medium text-white group-hover:text-[#38BDF8] transition-colors">HealthAI</td>
+                  <td className="py-3.5 font-medium text-white group-hover:text-emerald-400 transition-colors">HealthAI</td>
                   <td className="py-3.5 text-gray-400">HealthTech</td>
                   <td className="py-3.5">$750K</td>
-                  <td className="py-3.5"><span className="text-xs bg-sky-400/10 text-[#38BDF8] px-2 py-0.5 rounded font-medium">Seed</span></td>
+                  <td className="py-3.5"><span className="text-xs bg-emerald-400/10 text-emerald-400 px-2 py-0.5 rounded font-medium">Seed</span></td>
                 </tr>
               </tbody>
             </table>
@@ -106,6 +123,49 @@ export default function Home() {
         </div>
 
       </div>
+
+      {/* Step 7: Conditional Modal Markup Injection */}
+      {showInfo && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[1000] backdrop-blur-xs">
+          <div className="bg-[#0B1117] border border-emerald-500 rounded-xl p-6 w-[420px] shadow-2xl">
+            
+            <h2 className="text-xl font-bold text-emerald-400">
+              Architect Metadata
+            </h2>
+
+            <div className="mt-4 space-y-3 text-sm text-gray-300">
+              <p>
+                <strong>Architect:</strong> Vipanjika P
+              </p>
+
+              <p>
+                <strong>Batch:</strong> Batch 2 Interns
+              </p>
+
+              <p>
+                <strong>Stack:</strong>
+                <br />
+                Next.js
+                <br />
+                FastAPI
+                <br />
+                Tailwind CSS
+                <br />
+                ECharts
+              </p>
+            </div>
+
+            <button
+              onClick={() => setShowInfo(false)}
+              className="mt-6 px-4 py-2 rounded-lg bg-emerald-600 text-white font-semibold transition-colors hover:bg-emerald-700"
+            >
+              Close
+            </button>
+
+          </div>
+        </div>
+      )}
+
     </main>
   );
 }
