@@ -1,6 +1,5 @@
 'use client';
 
-// Step 5: Updated import statement to include useState
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import IntelligenceSidebar from '@/components/IntelligenceSidebar'; 
@@ -18,13 +17,12 @@ const TractionChart = dynamic(
 );
 
 export default function Home() {
-  // Step 5: Instantiated the local state container for modal tracking
   const [showInfo, setShowInfo] = useState(false);
 
   return (
     <main className="min-h-screen bg-[#0A0A12] text-white font-sans antialiased selection:bg-emerald-500/30">
       
-      {/* Step 6: Added the fixed positioning (i) Trigger Button */}
+      {/* Structural Metadata Trigger Button */}
       <div className="fixed top-4 right-4 z-50">
         <button
           onClick={() => setShowInfo(true)}
@@ -72,8 +70,9 @@ export default function Home() {
           <div className="bg-[#0B1117] border border-[#1F2937] rounded-xl p-5">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-semibold text-white tracking-tight">Traction Trends</h3>
+              {/* FIX 1: Updated to reflect demo architecture */}
               <span className="text-[10px] uppercase font-bold tracking-widest text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
-                Live SEC Stream
+                Demo Data Stream
               </span>
             </div>
             <div className="h-64 w-full relative">
@@ -124,7 +123,7 @@ export default function Home() {
 
       </div>
 
-      {/* Step 7: Conditional Modal Markup Injection */}
+      {/* Structural Informational Metadata Overlay Modal */}
       {showInfo && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[1000] backdrop-blur-xs">
           <div className="bg-[#0B1117] border border-emerald-500 rounded-xl p-6 w-[420px] shadow-2xl">
