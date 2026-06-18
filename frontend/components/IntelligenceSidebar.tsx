@@ -1,80 +1,128 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+interface SecCompany {
+  company: string;
+  cik: string;
+  ticker: string;
+}
 
 export default function IntelligenceSidebar() {
-  
-  // Synthetic dataset tracking public data feed fields (FIX 3: Replaced SEC EDGAR with Demo Dataset)
-  const secDatasetArray = [
-    { Company: "FinGrow", Sector: "FinTech", CapitalRaise: "500000", PhaseStage: "Seed", FilingRegistry: "Demo Dataset" },
-    { Company: "EcoGrid", Sector: "ClimateTech", CapitalRaise: "1000000", PhaseStage: "Series A", FilingRegistry: "Demo Dataset" },
-    { Company: "HealthAI", Sector: "HealthTech", CapitalRaise: "750000", PhaseStage: "Seed", FilingRegistry: "Demo Dataset" }
-  ];
+  const [companies, setCompanies] = useState<SecCompany[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const handleDatasetDownloadEvent = () => {
-    if (secDatasetArray.length === 0) return;
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/api/sec-edgar')
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Failed to fetch SEC EDGAR data');
+        }
+        return res.json();
+      })
+      .then((result) => {
+        setCompanies(result);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
 
-    const fileHeaders = Object.keys(secDatasetArray[0]).join(',') + '\n';
-    const fileRows = secDatasetArray
-      .map(entry => Object.values(entry).map(val => `"${val}"`).join(','))
-      .join('\n');
+  const downloadCSV = () => {
+    if (companies.length === 0) return;
 
-    const combinedBlobUri = "data:text/csv;charset=utf-8," + encodeURIComponent(fileHeaders + fileRows);
-    
-    const virtualLinkDOMElement = document.createElement('a');
-    virtualLinkDOMElement.setAttribute('href', combinedBlobUri);
-    // FIX 4: Updated filename to eliminate SEC reference
-    virtualLinkDOMElement.setAttribute('download', 'crowdfunding_demo_dataset.csv');
-    
-    document.body.appendChild(virtualLinkDOMElement);
-    virtualLinkDOMElement.click();
-    document.body.removeChild(virtualLinkDOMElement);
+    let csv = 'Company,CIK,Ticker\n';
+
+    companies.forEach((company) => {
+      csv += `${company.company},${company.cik},${company.ticker}\n`;
+    });
+
+    const blob = new Blob([csv], {
+      type: 'text/csv;charset=utf-8;',
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'sec_edgar_companies.csv';
+    link.click();
+
+    URL.revokeObjectURL(url);
   };
 
   return (
-    <div className="bg-[#0B1117] border border-[#1F2937] rounded-xl p-6 space-y-6 h-full"> {/* Surface: #0B1117, Borders: #1F2937 */}
-      
+    <div className="bg-[#0B1117] border border-[#1F2937] rounded-xl p-6 space-y-6 h-full">
+
+      <h2 className="text-base font-bold text-white">
+        Intelligence Sidebar
+      </h2>
+
       <div>
-        <h2 className="text-base font-bold text-white tracking-tight">Intelligence Sidebar</h2>
+        <h4 className="text-[10px] uppercase font-bold tracking-widest text-[#38BDF8]">
+          Live SEC EDGAR Data
+        </h4>
+
+        {loading && (
+          <p className="text-gray-400 mt-3">
+            Loading...
+          </p>
+        )}
+
+        {error && (
+          <p className="text-red-500 mt-3">
+            {error}
+          </p>
+        )}
+
+        {!loading && companies.length > 0 && (
+          <div className="mt-4 space-y-4 max-h-80 overflow-y-auto">
+
+            {companies.map((company) => (
+              <div
+                key={company.cik}
+                className="border-b border-[#1F2937] pb-3"
+              >
+                <p className="text-white font-semibold">
+                  {company.company}
+                </p>
+
+                <p className="text-sm text-gray-400">
+                  CIK: {company.cik}
+                </p>
+
+                <p className="text-sm text-gray-400">
+                  Ticker: {company.ticker}
+                </p>
+              </div>
+            ))}
+
+          </div>
+        )}
       </div>
 
-      {/* Section B: Why This Matters */}
-      <div className="space-y-1">
-        <h4 className="text-[10px] uppercase font-bold tracking-widest text-[#38BDF8]">Why This Matters</h4> {/* Accent Primary: #38BDF8 */}
-        <p className="text-xs text-gray-400 leading-relaxed font-normal">
-          Makes alternative capital formation and traction snapshots tangible to the public.
+      <div>
+        <h4 className="text-[10px] uppercase font-bold tracking-widest text-[#818CF8]">
+          Why This Matters
+        </h4>
+
+        <p className="text-xs text-gray-400 mt-2">
+          This dashboard retrieves live company information from the SEC EDGAR
+          service through the FastAPI backend instead of relying on hardcoded
+          values.
         </p>
       </div>
 
-      {/* Section C: Who Controls The Rail */}
-      <div className="space-y-1">
-        <h4 className="text-[10px] uppercase font-bold tracking-widest text-[#818CF8]">Who Controls The Rail</h4> {/* Accent Secondary: #818CF8 */}
-        {/* FIX 2: Replaced misleading wording with demonstration statement */}
-        <p className="text-xs text-gray-400 leading-relaxed font-normal">
-          This demonstration dashboard models how crowdfunding and regulatory disclosure data can be analyzed.
-        </p>
-      </div>
-
-      {/* Section D: Filters */}
-      <div className="space-y-2">
-        <h4 className="text-[10px] uppercase font-bold tracking-widest text-gray-500">Infrastructure Filter</h4>
-        <select className="w-full bg-[#030712] border border-[#1F2937] rounded-lg p-2.5 text-xs font-medium text-gray-300 focus:outline-none focus:border-[#38BDF8] transition-all cursor-pointer"> {/* Background: #030712 */}
-          <option value="all">All Sectors (Demo Global Feed)</option>
-          <option value="fintech">FinTech Division</option>
-          <option value="climate">ClimateTech Division</option>
-          <option value="health">HealthTech Division</option>
-        </select>
-      </div>
-
-      {/* Section E: Download Utility */}
-      <div className="pt-2">
-        <button
-          onClick={handleDatasetDownloadEvent}
-          className="w-full bg-[#38BDF8] text-[#030712] font-bold text-xs py-3 px-4 rounded-lg transition-all hover:bg-[#38BDF8]/90 active:scale-[0.99]"
-        >
-          Download Sample Data
-        </button>
-      </div>
+      <button
+        onClick={downloadCSV}
+        disabled={companies.length === 0}
+        className="w-full bg-[#38BDF8] text-black font-bold text-xs py-3 rounded-lg hover:bg-[#0EA5E9] disabled:opacity-50"
+      >
+        Download SEC Data
+      </button>
 
     </div>
   );
