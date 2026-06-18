@@ -2,6 +2,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Dict, Any
+import os
+import requests
 
 app = FastAPI(
     title="Crowdfunding Deal Radar API - POC 1",
@@ -116,6 +118,35 @@ async def get_traction_trends():
         {"month": "Mar", "capital_flow": 25}, {"month": "Apr", "capital_flow": 22},
         {"month": "May", "capital_flow": 35}, {"month": "Jun", "capital_flow": 42}
     ]
+
+
+@app.get("/api/sec-edgar")
+async def get_sec_edgar():
+    headers = {
+        "User-Agent": os.getenv(
+            "SEC_EDGAR_USER_AGENT",
+            "CrowdfundingDealRadar your-email@example.com"
+        )
+    }
+
+    url = "https://data.sec.gov/submissions/CIK0000320193.json"
+
+    try:
+        response = requests.get(url, headers=headers, timeout=10)
+        response.raise_for_status()
+
+        data = response.json()
+
+        return {
+            "company": data.get("name"),
+            "cik": data.get("cik"),
+            "ticker": data.get("tickers"),
+            "entityType": data.get("entityType")
+        }
+
+    except requests.RequestException as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 if __name__ == "__main__":
     import uvicorn
