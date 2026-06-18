@@ -1,107 +1,101 @@
-POC 82 – Crowdfunding Deal Radar
-Author: Vipanchika P
+# POC 82 – Crowdfunding Deal Radar
 
-POC ID: 82
+**Author:** Vipanchika P  
+**POC ID:** 82  
+**Rail Category:** Capital Formation  
 
-Rail Category: Capital Formation
+## Overview
 
-Overview
-Crowdfunding Deal Radar is a Real Rails Intelligence Dashboard designed to visualize alternative capital formation activity. The platform ingest directly from SEC EDGAR disclosure feeds to track real-time organizational records, ticker distributions, and active market registrations through an interactive, streaming-ready panel dashboard.
+Crowdfunding Deal Radar is an enterprise-grade Intelligence Dashboard designed to track and visualize alternative capital formation activity. By migrating from legacy static datasets to a live upstream integration with the SEC EDGAR disclosure pipeline, the platform delivers real-time corporate records, ticker distributions, and active market registrations through a low-latency, streaming-optimized user interface.
 
-Features
-Real Rails Obsidian UI (#030712)
+## Features
 
-70/30 Intelligence Dashboard Layout
+* **Real Rails Obsidian UI:** Deep-spectrum dark interface (`#030712`) engineered for high-density financial data visualization.
+* **70/30 Architectural Layout:** Asymmetric split prioritizing core data metrics and real-time visualization streams over contextual intelligence rails.
+* **KPI Metric Matrices:** At-a-glance performance tracking covering total market opportunities, aggregate capital metrics, and high-frequency sector flows.
+* **Traction Trend Analytics:** Client-side charting via an asynchronous Apache ECharts micro-engine pipeline.
+* **Active Disclosures Interface:** Strictly-typed table dynamically mapping real-time corporate issuers to their SEC CIK and Ticker configurations.
+* **Intelligence Sidebar:** Contextual plane housing system control metadata, rail ownership insights, and environment configuration flags.
+* **Decoupled API Architecture:** Fully containerized backend service leveraging decoupled environment profiles (`.env.example`).
 
-KPI Metrics Cards with Core Infrastructure Rails
+## Tech Stack
 
-Traction Trend Analytics via Dynamic ECharts Pipeline
+### Frontend
+* **Framework:** Next.js 14+ (App Router Architecture)
+* **Language:** TypeScript (Strict Type Safety Interfaces)
+* **Styling:** Tailwind CSS (Utility-First Responsive Grid)
+* **Data Visualization:** Apache ECharts (Dynamic Async Client-side Hydration via `next/dynamic`)
+* **Component Primitive:** shadcn/ui
 
-Active Deals Table mapped to SEC CIK and Ticker data
+### Backend
+* **Framework:** FastAPI (Asynchronous Server Gateway Interface)
+* **Data Processing:** Pandas / Python HTTP Infrastructure
+* **Server:** Uvicorn ASGI Engine
 
-Intelligence Sidebar with structural metadata triggers
+---
 
-Environment-backed API orchestration (.env.example)
+## Project Structure
 
-FastAPI Backend Live Feed Pipeline
-
-Tech Stack
-Frontend
-Next.js 14+ (App Router)
-
-TypeScript (Strictly Typed Data Interfaces)
-
-Tailwind CSS
-
-Apache ECharts (Dynamic Client-side Rendering via next/dynamic)
-
-shadcn/ui
-
-Backend
-FastAPI
-
-Pandas / Python HTTP clients
-
-Uvicorn ASGI Server
-
-Project Structure
-Plaintext
+```text
 poc-82-crowdfunding-deal-radar-vipanchika-p/
 │
 ├── frontend/
 │   ├── app/
-│   │   └── page.tsx           # Primary client-side rendering pipeline
+│   │   └── page.tsx           # Primary client-side data orchestration plane
 │   ├── components/
 │   │   ├── IntelligenceSidebar.tsx
-│   │   └── TractionChart.tsx  # Dynamic asynchronous ECharts viewport
+│   │   └── TractionChart.tsx  # Asynchronous ECharts analytics engine viewport
 │   ├── public/
-│   ├── .env.example           # Shared environment architecture blueprint
+│   ├── .env.example           # Shared environment runtime blueprint
 │   └── package.json           # Isolated frontend package manifest
 │
 ├── backend/
-│   ├── main.py                # Core FastAPI app router
+│   ├── main.py                # Core FastAPI router and pipeline logic
 │   ├── data/
 │   └── requirements.txt
 │
 ├── VAR_REPORT.md
 ├── UAT_CHECKLIST.md
 └── README.md
-Installation
-Frontend Environment Setup
-Copy the environment variables template:
+Installation & Environment Setup
+Frontend Deployment
+Initialize Environment Configuration:
+Instantiate your local runtime profile from the shared blueprint:
 
 Bash
 cp frontend/.env.example frontend/.env.local
-Spin up the Next.js production/dev workspace:
+Install Dependencies & Execute Development Server:
 
 Bash
 cd frontend
 npm install
 npm run dev
-Frontend runs locally on: http://localhost:3000
+The local client interface will initialize at: http://localhost:3000
 
-Backend Engine Setup
-Initialize and activate the virtual environment:
+Backend Engine Initialization
+Isolate Python Runtime Environment:
 
 Bash
 cd backend
 python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
-Install active requirements and start the ASGI pipeline:
+source venv/bin/activate  # Windows Environments: venv\Scripts\activate
+Provision Dependencies & Launch ASGI Pipeline:
 
 Bash
 pip install -r requirements.txt
 uvicorn main:app --reload
-Backend routes listen on: http://localhost:8000
+The core service layer will listen at: http://localhost:8000
 
 API Endpoints
-Health Check
+System Health Diagnostics
 HTTP
 GET /
-Live SEC EDGAR Corporate Stream
+Returns infrastructure operational status and gateway connectivity.
+
+SEC EDGAR Corporate Stream
 HTTP
 GET /api/sec-edgar
-Returns structured, authenticated SEC corporate information in the following strict schema:
+Returns authenticated corporate disclosure structures from the ingestion pipeline in the following strict JSON schema:
 
 JSON
 [
@@ -112,32 +106,32 @@ JSON
   }
 ]
 Dashboard Sections
-Main Stage (70%)
-KPI Metrics Grid: Aggregated insights tracking total market opportunities, capital distribution scales, and high-frequency sectors.
+Main Stage (70% Canvas Width)
+KPI Metrics Grid: Computes alternative capital metrics, macro-level volume distributions, and sector concentrations.
 
-Traction Trends Chart: Low-latency client-side rendering powered by Apache ECharts mapping real-time asset flows.
+Traction Trends Chart: Low-overhead execution loop rendering high-density historical data patterns via Apache ECharts.
 
-Active Deals Table: Strongly-typed corporate disclosure monitor showcasing Issuer Name, Ticker symbol, unique Central Index Key (CIK), and explicit real-time status indices.
+Active Deals Table: A typed tabular data grid tracking issuer identity, ticker assets, and Central Index Keys (CIK) with active, hardcoded status attributes.
 
-Intelligence Sidebar (30%)
-Context Engine: Direct metadata summaries detailing why capital formation visibility moves private markets.
+Intelligence Sidebar (30% Canvas Width)
+Context Engine: Provides specialized metadata summaries regarding the velocity of private market capital formation.
 
-Regulatory Rail Control: System level insights tracking SEC EDGAR disclosures, market founders, and fund clearing routing points.
+Regulatory Rail Control: System-level breakdowns detailing market controls across SEC EDGAR disclosures, core founders, and clearing routes.
 
 Future Enhancements
-LinkedIn Signal Tracking & Corporate Hierarchy Mapping
+Cross-referencing SEC filings against real-time LinkedIn signal intelligence tracking.
 
-Advanced Time-Series forecasting models for market compliance timelines
+Time-series predictive forecasting for macro-level capital placement cycles.
 
-Multi-format data output modules (Secure CSV/JSON exports)
+Secure multi-format operational data exports (CSV, TSV, and JSON payloads).
 
 Status
-✅ Phase 1 Complete
+✅ Phase 1 Core Architecture Verified
 
-✅ ECharts Micro-engine Active
+✅ Client-Side ECharts Engine Operational
 
-✅ SEC EDGAR Live Feed Integration Wired
+✅ SEC EDGAR Live Ingestion Pipeline Connected
 
-✅ Duplicate Root Dependencies Purged
+✅ Redundant Root Manifests Purged
 
-✅ Environment Variables Template Staged
+✅ Configuration Decoupling Implemented
