@@ -1,162 +1,143 @@
-# POC 82 – Crowdfunding Deal Radar
+POC 82 – SEC EDGAR Deal Radar
+Author: Vipanchika P
 
-**Author:** Vipanchika P
-**POC ID:** 82
-**Rail Category:** Capital Formation
+POC ID: 82
 
-## Overview
+Rail Category: Capital Formation
 
-Crowdfunding Deal Radar is a Real Rails Intelligence Dashboard designed to visualize alternative capital formation activity. The platform provides insights into crowdfunding deals, sector trends, fundraising traction, and market intelligence through an interactive dashboard.
+Overview
+SEC EDGAR Deal Radar is a Real Rails Intelligence Dashboard designed to visualize alternative capital formation activity. The platform ingest directly from SEC EDGAR disclosure feeds to track real-time organizational records, ticker distributions, and active market registrations through an interactive, streaming-ready panel dashboard.
 
-## Features
+Features
+Real Rails Obsidian UI (#030712)
 
-* Real Rails Obsidian UI (#030712)
-* 70/30 Intelligence Dashboard Layout
-* KPI Metrics Cards
-* Traction Trend Visualization
-* Active Deals Table
-* Intelligence Sidebar
-* Sector-Based Filtering
-* Download Sample Data
-* FastAPI Backend Integration
-* CSV-Based Data Pipeline
+70/30 Intelligence Dashboard Layout
 
-## Tech Stack
+KPI Metrics Cards with Core Infrastructure Rails
 
-### Frontend
+Traction Trend Analytics via Dynamic ECharts Pipeline
 
-* Next.js 14+
-* TypeScript
-* Tailwind CSS
-* Recharts
-* shadcn/ui
+Active Deals Table mapped to SEC CIK and Ticker data
 
-### Backend
+Intelligence Sidebar with structural metadata triggers
 
-* FastAPI
-* Pandas
-* Python
+Environment-backed API orchestration (.env.example)
 
-## Project Structure
+FastAPI Backend Live Feed Pipeline
 
-```text
+Tech Stack
+Frontend
+Next.js 14+ (App Router)
+
+TypeScript (Strictly Typed Data Interfaces)
+
+Tailwind CSS
+
+Apache ECharts (Dynamic Client-side Rendering via next/dynamic)
+
+shadcn/ui
+
+Backend
+FastAPI
+
+Pandas / Python HTTP clients
+
+Uvicorn ASGI Server
+
+Project Structure
+Plaintext
 poc-82-crowdfunding-deal-radar-vipanchika-p/
 │
 ├── frontend/
 │   ├── app/
+│   │   └── page.tsx           # Primary client-side rendering pipeline
 │   ├── components/
+│   │   ├── IntelligenceSidebar.tsx
+│   │   └── TractionChart.tsx  # Dynamic asynchronous ECharts viewport
 │   ├── public/
-│   └── package.json
+│   ├── .env.example           # Shared environment architecture blueprint
+│   └── package.json           # Isolated frontend package manifest
 │
 ├── backend/
-│   ├── main.py
+│   ├── main.py                # Core FastAPI app router
 │   ├── data/
-│   │   └── deals.csv
 │   └── requirements.txt
 │
 ├── VAR_REPORT.md
 ├── UAT_CHECKLIST.md
 └── README.md
-```
+Installation
+Frontend Environment Setup
+Copy the environment variables template:
 
-## Installation
+Bash
+cp frontend/.env.example frontend/.env.local
+Spin up the Next.js production/dev workspace:
 
-### Frontend
-
-```bash
+Bash
 cd frontend
 npm install
 npm run dev
-```
+Frontend runs locally on: http://localhost:3000
 
-Frontend runs on:
+Backend Engine Setup
+Initialize and activate the virtual environment:
 
-```text
-http://localhost:3000
-```
-
-### Backend
-
-```bash
+Bash
 cd backend
 python -m venv venv
-```
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+Install active requirements and start the ASGI pipeline:
 
-Activate the virtual environment:
-
-```bash
-venv\Scripts\activate
-```
-
-Install dependencies:
-
-```bash
-pip install fastapi uvicorn pandas
-```
-
-Run the backend:
-
-```bash
+Bash
+pip install -r requirements.txt
 uvicorn main:app --reload
-```
+Backend routes listen on: http://localhost:8000
 
-Backend runs on:
-
-```text
-http://localhost:8000
-```
-
-## API Endpoints
-
-### Health Check
-
-```http
+API Endpoints
+Health Check
+HTTP
 GET /
-```
+Live SEC EDGAR Corporate Stream
+HTTP
+GET /api/sec-edgar
+Returns structured, authenticated SEC corporate information in the following strict schema:
 
-### Deals Data
+JSON
+[
+  {
+    "company": "Apple Inc.",
+    "ticker": "AAPL",
+    "cik": "0000320193"
+  }
+]
+Dashboard Layout Specification
+Main Stage Panel (70% Width Split)
+KPI Metrics Grid: Aggregated insights tracking total market opportunities, capital distribution scales, and high-frequency sectors.
 
-```http
-GET /deals
-```
+Traction Trends Chart: Low-latency client-side rendering powered by Apache ECharts mapping real-time asset flows.
 
-Returns crowdfunding deal information in JSON format.
+Active Deals Table: Strongly-typed corporate disclosure monitor showcasing Issuer Name, Ticker symbol, unique Central Index Key (CIK), and explicit real-time status indices.
 
-## Dashboard Sections
+Intelligence Sidebar Panel (30% Width Split)
+Context Engine: Direct metadata summaries detailing why capital formation visibility moves private markets.
 
-### Main Stage (70%)
+Regulatory Rail Control: System level insights tracking SEC EDGAR disclosures, market founders, and fund clearing routing points.
 
-* KPI Metrics
-* Traction Trends Chart
-* Active Deals Table
+Future Enhancements
+LinkedIn Signal Tracking & Corporate Hierarchy Mapping
 
-### Intelligence Sidebar (30%)
+Advanced Time-Series forecasting models for market compliance timelines
 
-* Why This Matters
-* Who Controls The Rail
-* Infrastructure Filters
-* Download Sample Data
+Multi-format data output modules (Secure CSV/JSON exports)
 
-## Why This Matters
-
-Crowdfunding activity reveals emerging capital formation trends and provides visibility into fundraising activity across sectors.
-
-## Who Controls The Rail
-
-SEC EDGAR disclosures, crowdfunding platforms, founders, and investors collectively shape the flow of capital formation.
-
-## Future Enhancements
-
-* SEC EDGAR API Integration
-* LinkedIn Signal Tracking
-* Live Deal Feed Monitoring
-* Advanced Analytics
-* Export Reports
-
-## Status
-
+Status
 ✅ Phase 1 Complete
-✅ Dashboard UI Complete
-✅ FastAPI Backend Ready
-✅ VAR Review Ready
-✅ UAT Ready
+
+✅ ECharts Micro-engine Active
+
+✅ SEC EDGAR Live Feed Integration Wired
+
+✅ Duplicate Root Dependencies Purged
+
+✅ Environment Variables Template Staged
