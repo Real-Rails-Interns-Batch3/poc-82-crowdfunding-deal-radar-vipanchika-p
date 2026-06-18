@@ -1,4 +1,4 @@
-POC 82 – SEC EDGAR Deal Radar
+POC 82 – Crowdfunding Deal Radar
 Author: Vipanchika P
 
 POC ID: 82
@@ -6,7 +6,7 @@ POC ID: 82
 Rail Category: Capital Formation
 
 Overview
-SEC EDGAR Deal Radar is a Real Rails Intelligence Dashboard designed to visualize alternative capital formation activity. The platform ingest directly from SEC EDGAR disclosure feeds to track real-time organizational records, ticker distributions, and active market registrations through an interactive, streaming-ready panel dashboard.
+Crowdfunding Deal Radar is a Real Rails Intelligence Dashboard designed to visualize alternative capital formation activity. The platform ingest directly from SEC EDGAR disclosure feeds to track real-time organizational records, ticker distributions, and active market registrations through an interactive, streaming-ready panel dashboard.
 
 Features
 Real Rails Obsidian UI (#030712)
@@ -111,15 +111,15 @@ JSON
     "cik": "0000320193"
   }
 ]
-Dashboard Layout Specification
-Main Stage Panel (70% Width Split)
+Dashboard Sections
+Main Stage (70%)
 KPI Metrics Grid: Aggregated insights tracking total market opportunities, capital distribution scales, and high-frequency sectors.
 
 Traction Trends Chart: Low-latency client-side rendering powered by Apache ECharts mapping real-time asset flows.
 
 Active Deals Table: Strongly-typed corporate disclosure monitor showcasing Issuer Name, Ticker symbol, unique Central Index Key (CIK), and explicit real-time status indices.
 
-Intelligence Sidebar Panel (30% Width Split)
+Intelligence Sidebar (30%)
 Context Engine: Direct metadata summaries detailing why capital formation visibility moves private markets.
 
 Regulatory Rail Control: System level insights tracking SEC EDGAR disclosures, market founders, and fund clearing routing points.
